@@ -11,7 +11,16 @@ public class LowerCase {
     * Non-letter characters are left as is.
     */
     public static String lowerCase(String s) {
-        // Replace the following statement with your code
-        return null;
+        String newS = "";
+        int length = s.length();
+        for (int i = 0; i < length; i++){
+            if ((int)(s.charAt(i)) >= 65 && (int)(s.charAt(i)) <= 90){
+                newS = newS + (char)((int)(s.charAt(i)) + 32);
+            }
+            else {
+                newS = newS + s.charAt(i);
+            }
+        }
+        return newS;
     }
 }
