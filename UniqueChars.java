@@ -4,7 +4,7 @@ public class uniquechars {
         String str = args[0];
         System.out.println(uniqueChars(str));
     }
-
+// name change
     /**
      * Returns a string which is identical to the original string, 
      * except that all the duplicate characters are removed,
