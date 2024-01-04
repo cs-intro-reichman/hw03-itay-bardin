@@ -21,38 +21,44 @@ public class Calendar1 {
 	    int debugDaysCounter = 0; 
 	    //// Write the necessary initialization code, and replace the condition
 	    //// of the while loop with the necessary condition 
-		while (year <= 1999) {
-            advance();
-            // Print current date
-            System.out.println(dayOfMonth + "/" + month + "/" + year + (dayOfWeek == 1 ? " Sunday" : ""));
-            // Check for Sundays on the first day
-            if (dayOfMonth == 1 && dayOfWeek == 1) {
-                sundaysOnFirst++;
-            }
-            year++;
-        }
-        // Print final report
-        System.out.println("During the 20th century, " + sundaysOnFirst + " Sundays fell on the first day of the month");
-    }
+			while (dayOfMonth <= nDaysInMonth(month, year) && year <= 1999) { // Use nDaysInMonth directly
+				if (dayOfWeek == 1) {
+					if (dayOfMonth == 1) {
+						sundaysOnFirst++;
+					}
+					System.out.println(dayOfMonth + "/" + month + "/" + year + " Sunday");
+				} else {
+					System.out.println(dayOfMonth + "/" + month + "/" + year);
+				}
+				debugDaysCounter++;
+				advance(); // Move to the next day
+			}
+		System.out.println("During the 20th century, " + sundaysOnFirst + " Sundays fell on the first day of the month");
+	}
 
-    // Function to advance counters
-    private static void advance() {
-        dayOfMonth++;
-
-        if (dayOfMonth > nDaysInMonth) {  // Move to next month if needed
-            dayOfMonth = 1;
-            month++;
-        }
-
-        if (month > 12) {  // Move to next year if needed
-            month = 1;
-            year++;
-        }
-
-        dayOfWeek = (dayOfWeek % 7) + 1;  // Ensure dayOfWeek cycles from 1 to 7
-
-        nDaysInMonth = nDaysInMonth(month, year);  // Update month length for new month/year
-    }
+	
+	 // Advances the date (day, month, year) and the day-of-the-week.
+	 // If the month changes, sets the number of days in this month.
+	 // Side effects: changes the static variables dayOfMonth, month, year, dayOfWeek, nDaysInMonth.
+	 private static void advance() {
+		dayOfMonth++; // Increment the day of the month
+		dayOfWeek++; // Increment the day of the week
+	
+		// Handle end of month:
+		if (dayOfMonth > nDaysInMonth(month, year)) {
+			dayOfMonth = 1; // Reset to the first day of the next month
+			month++; // Increment the month
+	
+			// Handle end of year:
+			if (month > 12) {
+				month = 1; // Reset to January
+					year++;
+			}
+		}
+	
+		// Adjust day of week if it exceeds 7:
+		dayOfWeek %= 7; // Ensure dayOfWeek stays within 1-7
+	}
 		 
     // Returns true if the given year is a leap year, false otherwise.
 	private static boolean isLeapYear(int year) {
